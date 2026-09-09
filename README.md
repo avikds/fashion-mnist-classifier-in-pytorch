@@ -20,7 +20,7 @@ python scaffold.py
 - [x] **8.** lr_range_test
 - [x] **9.** random_search
 - [x] **10.** test_accuracy
-- [ ] **11.** save_model
+- [x] **11.** save_model
 - [ ] **12.** predict_classes
 
 ---
