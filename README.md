@@ -18,7 +18,7 @@ python scaffold.py
 - [x] **6.** evaluate
 - [x] **7.** fit
 - [x] **8.** lr_range_test
-- [ ] **9.** random_search
+- [x] **9.** random_search
 - [ ] **10.** test_accuracy
 - [ ] **11.** save_model
 - [ ] **12.** predict_classes
