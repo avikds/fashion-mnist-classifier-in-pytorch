@@ -197,8 +197,33 @@ def train_one_epoch(model, loader, loss_fn, optimizer):
 
     return float(total_loss / num_batches)
 
-# Step 6 - evaluate (not yet solved)
-# TODO: implement
+# Step 6 - evaluate
+def evaluate(model, loader, loss_fn):
+    model.eval()
+
+    total_loss = 0.0
+    total_correct = 0
+    total_examples = 0
+
+    with torch.no_grad():
+        for X_batch, y_batch in loader:
+            logits = model(X_batch)
+
+            loss = loss_fn(logits, y_batch)
+
+            batch_size = y_batch.size(0)
+
+            # Convert the batch mean loss to summed loss.
+            total_loss += loss.item() * batch_size
+
+            predictions = logits.argmax(dim=1)
+            total_correct += (predictions == y_batch).sum().item()
+            total_examples += batch_size
+
+    mean_loss = total_loss / total_examples
+    accuracy = total_correct / total_examples
+
+    return float(mean_loss), float(accuracy)
 
 # Step 7 - fit (not yet solved)
 # TODO: implement
