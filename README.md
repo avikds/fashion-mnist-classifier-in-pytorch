@@ -16,7 +16,7 @@ python scaffold.py
 - [x] **4.** MLP
 - [x] **5.** train_one_epoch
 - [x] **6.** evaluate
-- [ ] **7.** fit
+- [x] **7.** fit
 - [ ] **8.** lr_range_test
 - [ ] **9.** random_search
 - [ ] **10.** test_accuracy
