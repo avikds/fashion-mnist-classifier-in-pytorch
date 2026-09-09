@@ -376,7 +376,6 @@ def save_model(model, path):
         path,
     )
 
-
 def load_model(path):
     checkpoint = torch.load(path, map_location="cpu")
 
