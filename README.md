@@ -14,7 +14,7 @@ python scaffold.py
 - [x] **2.** FashionDataset
 - [x] **3.** make_loaders
 - [x] **4.** MLP
-- [ ] **5.** train_one_epoch
+- [x] **5.** train_one_epoch
 - [ ] **6.** evaluate
 - [ ] **7.** fit
 - [ ] **8.** lr_range_test
