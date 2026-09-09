@@ -1,0 +1,137 @@
+"""
+Fashion-MNIST Classifier in PyTorch
+
+Assembled from your step-by-step solutions.
+"""
+
+import numpy as np
+
+# Step 1 - load_fashion_mnist
+import os
+import tempfile
+import gzip
+import urllib.request
+import numpy as np
+import torch
+
+def load_fashion_mnist(n_train=10000, n_test=2000):
+    base_url = "https://storage.googleapis.com/tensorflow/tf-keras-datasets/"
+    files = [
+        "train-images-idx3-ubyte.gz",
+        "train-labels-idx1-ubyte.gz",
+        "t10k-images-idx3-ubyte.gz",
+        "t10k-labels-idx1-ubyte.gz",
+    ]
+
+    # Download each file once into the system temporary directory.
+    file_paths = {}
+    temp_dir = tempfile.gettempdir()
+
+    for filename in files:
+        path = os.path.join(temp_dir, filename)
+        file_paths[filename] = path
+
+        if not os.path.exists(path):
+            urllib.request.urlretrieve(base_url + filename, path)
+
+    # Parse image IDX files.
+    def load_images(path):
+        with gzip.open(path, "rb") as f:
+            data = f.read()
+
+        images = np.frombuffer(
+            data,
+            dtype=np.uint8,
+            offset=16
+        ).reshape(-1, 28, 28)
+
+        return images
+
+    # Parse label IDX files.
+    def load_labels(path):
+        with gzip.open(path, "rb") as f:
+            data = f.read()
+
+        labels = np.frombuffer(
+            data,
+            dtype=np.uint8,
+            offset=8
+        )
+
+        return labels
+
+    train_images = load_images(file_paths["train-images-idx3-ubyte.gz"])
+    train_labels = load_labels(file_paths["train-labels-idx1-ubyte.gz"])
+
+    test_images = load_images(file_paths["t10k-images-idx3-ubyte.gz"])
+    test_labels = load_labels(file_paths["t10k-labels-idx1-ubyte.gz"])
+
+    # Select the requested number of samples.
+    train_images = train_images[:n_train]
+    train_labels = train_labels[:n_train]
+
+    test_images = test_images[:n_test]
+    test_labels = test_labels[:n_test]
+
+    # Convert images to float32 tensors and scale pixels to [0, 1].
+    X_train = torch.from_numpy(train_images.copy()).to(torch.float32) / 255.0
+    X_test = torch.from_numpy(test_images.copy()).to(torch.float32) / 255.0
+
+    # Convert labels to int64 tensors.
+    y_train = torch.from_numpy(train_labels.copy()).to(torch.int64)
+    y_test = torch.from_numpy(test_labels.copy()).to(torch.int64)
+
+    return {
+        "X_train": X_train,
+        "y_train": y_train,
+        "X_test": X_test,
+        "y_test": y_test,
+    }
+
+# Step 2 - FashionDataset
+class FashionDataset(Dataset):
+    def __init__(self, X, y, mean=0.2860, std=0.3530):
+        self.X = X
+        self.y = y
+        self.mean = mean
+        self.std = std
+
+    def __len__(self):
+        return len(self.X)
+
+    def __getitem__(self, i):
+        image = (self.X[i] - self.mean) / self.std
+        label = self.y[i].to(torch.int64)
+
+        return image, label
+
+# Step 3 - make_loaders (not yet solved)
+# TODO: implement
+
+# Step 4 - MLP (not yet solved)
+# TODO: implement
+
+# Step 5 - train_one_epoch (not yet solved)
+# TODO: implement
+
+# Step 6 - evaluate (not yet solved)
+# TODO: implement
+
+# Step 7 - fit (not yet solved)
+# TODO: implement
+
+# Step 8 - lr_range_test (not yet solved)
+# TODO: implement
+
+# Step 9 - random_search (not yet solved)
+# TODO: implement
+
+# Step 10 - test_accuracy (not yet solved)
+# TODO: implement
+
+# Step 11 - save_model (not yet solved)
+# TODO: implement
+
+# Step 12 - predict_classes (not yet solved)
+# TODO: implement
+
