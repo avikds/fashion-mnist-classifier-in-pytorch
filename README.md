@@ -12,7 +12,7 @@ python scaffold.py
 
 - [x] **1.** load_fashion_mnist
 - [x] **2.** FashionDataset
-- [ ] **3.** make_loaders
+- [x] **3.** make_loaders
 - [ ] **4.** MLP
 - [ ] **5.** train_one_epoch
 - [ ] **6.** evaluate

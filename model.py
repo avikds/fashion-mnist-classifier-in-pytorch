@@ -105,8 +105,56 @@ class FashionDataset(Dataset):
 
         return image, label
 
-# Step 3 - make_loaders (not yet solved)
-# TODO: implement
+# Step 3 - make_loaders
+def make_loaders(data, batch_size=64, val_size=2000, seed=42):
+    X_train = data["X_train"]
+    y_train = data["y_train"]
+    X_test = data["X_test"]
+    y_test = data["y_test"]
+
+    # The last val_size training samples form the validation set.
+    X_tr = X_train[:-val_size]
+    y_tr = y_train[:-val_size]
+
+    X_val = X_train[-val_size:]
+    y_val = y_train[-val_size:]
+
+    train_dataset = FashionDataset(X_tr, y_tr)
+    val_dataset = FashionDataset(X_val, y_val)
+    test_dataset = FashionDataset(X_test, y_test)
+
+    # Seeded generator for reproducible training shuffling.
+    generator = torch.Generator().manual_seed(seed)
+
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=batch_size,
+        shuffle=True,
+        generator=generator
+    )
+
+    val_loader = DataLoader(
+        val_dataset,
+        batch_size=batch_size,
+        shuffle=False
+    )
+
+    test_loader = DataLoader(
+        test_dataset,
+        batch_size=batch_size,
+        shuffle=False
+    )
+
+    return {
+        "train": train_loader,
+        "val": val_loader,
+        "test": test_loader,
+        "sizes": (
+            len(train_dataset),
+            len(val_dataset),
+            len(test_dataset)
+        ),
+    }
 
 # Step 4 - MLP (not yet solved)
 # TODO: implement
