@@ -21,7 +21,7 @@ python scaffold.py
 - [x] **9.** random_search
 - [x] **10.** test_accuracy
 - [x] **11.** save_model
-- [ ] **12.** predict_classes
+- [x] **12.** predict_classes
 
 ---
 

@@ -392,6 +392,31 @@ def load_model(path):
 
     return model
 
-# Step 12 - predict_classes (not yet solved)
-# TODO: implement
+# Step 12 - predict_classes
+CLASS_NAMES = [
+    'T-shirt/top',
+    'Trouser',
+    'Pullover',
+    'Dress',
+    'Coat',
+    'Sandal',
+    'Shirt',
+    'Sneaker',
+    'Bag',
+    'Ankle boot'
+]
+
+def predict_classes(model, images):
+    X = torch.from_numpy(images).to(torch.float32) / 255.0
+
+    # Standardize using the Fashion-MNIST training-set statistics.
+    X = (X - 0.2860) / 0.3530
+
+    model.eval()
+
+    with torch.no_grad():
+        logits = model(X)
+        predictions = logits.argmax(dim=1)
+
+    return [CLASS_NAMES[i] for i in predictions.tolist()]
 
