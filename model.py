@@ -350,8 +350,17 @@ def random_search(loaders, n_trials=4, epochs=2, seed=42):
         "best": best,
     }
 
-# Step 10 - test_accuracy (not yet solved)
-# TODO: implement
+# Step 10 - test_accuracy
+def test_accuracy(model, loaders):
+    loss_fn = nn.CrossEntropyLoss()
+
+    _, accuracy = evaluate(
+        model,
+        loaders["test"],
+        loss_fn
+    )
+
+    return float(accuracy)
 
 # Step 11 - save_model (not yet solved)
 # TODO: implement
